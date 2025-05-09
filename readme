@@ -1,0 +1,3 @@
+abrir .env criptografado
+
+openssl enc -d -aes-256-cbc -in .env.enc -out .env -pass pass:"SENHA USADO PARA CRIPTOGRAFAR"
