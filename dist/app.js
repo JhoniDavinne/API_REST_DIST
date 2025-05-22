@@ -14,6 +14,7 @@ var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopReq
 const whiteList = [
   'https://api.davinne.dev',
   'http://localhost:3000',
+  'http://localhost:3000/',
 ];
 
 const corsOptions = {
@@ -38,10 +39,12 @@ class App {
 
   middleswares() {
     this.app.use(_cors2.default.call(void 0, corsOptions));
-    this.app.use(_helmet2.default.call(void 0, ));
+    this.app.use(_helmet2.default.call(void 0, {
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }));
     this.app.use(_express2.default.urlencoded({ extended: true }));
     this.app.use(_express2.default.json());
-    this.app.use('/images/', _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads', 'images')));
+    this.app.use('/images/', _cors2.default.call(void 0, corsOptions), _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads', 'images')));
   }
 
   routes() {
