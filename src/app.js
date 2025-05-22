@@ -14,6 +14,7 @@ import fotoRoutes from './routes/fotoRoutes';
 const whiteList = [
   'https://api.davinne.dev',
   'http://localhost:3000',
+  'http://localhost:3000/',
 ];
 
 const corsOptions = {
@@ -38,7 +39,9 @@ class App {
 
   middleswares() {
     this.app.use(cors(corsOptions));
-    this.app.use(helmet());
+    this.app.use(helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use('/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
