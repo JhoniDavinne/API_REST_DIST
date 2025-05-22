@@ -14,7 +14,6 @@ import fotoRoutes from './routes/fotoRoutes';
 const whiteList = [
   'https://api.davinne.dev',
   'http://localhost:3000',
-  'http://localhost:3000/',
 ];
 
 const corsOptions = {
@@ -39,12 +38,17 @@ class App {
 
   middleswares() {
     this.app.use(cors(corsOptions));
-    this.app.use(helmet({
-      crossOriginResourcePolicy: { policy: 'cross-origin' },
-    }));
+    this.app.use(
+      helmet({
+        crossOriginResourcePolicy: { policy: 'cross-origin' }, // Permite carregar recursos de origens diferentes
+      }),
+    );
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use('/images/', cors(corsOptions), express.static(resolve(__dirname, '..', 'uploads', 'images')));
+    this.app.use('/images/', cors(corsOptions), (req, res, next) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      next();
+    }, express.static(resolve(__dirname, '..', 'uploads', 'images')));
   }
 
   routes() {
