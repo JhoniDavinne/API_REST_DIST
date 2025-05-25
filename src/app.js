@@ -4,7 +4,6 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import delay from 'express-delay';
 import { resolve } from 'path';
 import homeRoutes from './routes/homeRoutes';
 import userRoutes from './routes/userRoutes';
