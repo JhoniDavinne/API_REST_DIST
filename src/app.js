@@ -44,7 +44,6 @@ class App {
         crossOriginResourcePolicy: { policy: 'cross-origin' }, // Permite carregar recursos de origens diferentes
       }),
     );
-    this.app.use(delay(2000));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use('/images/', cors(corsOptions), (req, res, next) => {
